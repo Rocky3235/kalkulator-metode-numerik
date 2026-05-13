@@ -741,3 +741,13 @@ a {
         font-size: 15px;
     }
 }
+
+/* Highlight baris konvergen agar tetap hijau meskipun berada di baris genap */
+.result-table tbody tr.row-ok td {
+    background: #f0fff4 !important;
+    color: #2d5a3d;
+}
+
+.result-table tbody tr.row-ok:hover td {
+    background: #e3fcec !important;
+}

@@ -98,9 +98,7 @@ function renderResult(data) {
   if (!resultContainer) return;
 
   const iterationRows = (data.iterations || []).map((row, index) => {
-    const isConverged =
-      Math.abs(Number(row.fc)) <= Number(data.tolerance) ||
-      Number(row.error) <= Number(data.tolerance);
+    const isConverged = Boolean(row.status);
 
     return `
       <tr class="${isConverged ? 'row-ok' : ''}">
@@ -117,7 +115,6 @@ function renderResult(data) {
     `;
   }).join('');
 
-  const resultClass = data.converged ? 'success' : 'warning';
   const statusText = data.converged ? 'Konvergen' : 'Belum Konvergen';
 
   resultContainer.innerHTML = `
@@ -169,7 +166,7 @@ function renderResult(data) {
                 <th>f(a)</th>
                 <th>f(b)</th>
                 <th>f(c)</th>
-                <th>Lebar Interval</th>
+                <th>Lebarnya/ɛ</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -185,7 +182,6 @@ function renderResult(data) {
   if (!data.converged) {
     showMessage('Metode selesai namun belum mencapai toleransi yang ditentukan.', 'warning');
   } else {
-    const iterasiTerakhir = (data.iterations || []).length - 1;
     showMessage(data.message || 'Perhitungan selesai.', 'success');
   }
 }

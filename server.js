@@ -273,6 +273,7 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
         error: 0,
         width: 0,
         interval: 0,
+        status: true,
       }],
     };
   }
@@ -294,6 +295,7 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
         error: 0,
         width: 0,
         interval: 0,
+        status: true,
       }],
     };
   }
@@ -304,7 +306,6 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
 
   const iterations = [];
   let c = a;
-  let prevC = null;
 
   for (let i = 0; i <= maxIter; i += 1) {
     c = (a + b) / 2;
@@ -314,6 +315,11 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       throw new Error(`Nilai fungsi tidak valid pada iterasi ${i}.`);
     }
 
+    /*
+      Lebar interval mengikuti cara lama:
+      jika akar ada di [a, c], lebar = |c - a|
+      jika akar ada di [c, b], lebar = |b - c|
+    */
     let error;
 
     if (fa * fc < 0) {
@@ -321,6 +327,8 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
     } else {
       error = Math.abs(b - c);
     }
+
+    const converged = Math.abs(fc) <= tol || error <= tol;
 
     iterations.push({
       iter: i,
@@ -333,9 +341,10 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       error,
       width: error,
       interval: error,
+      status: converged,
     });
 
-    if (Math.abs(fc) <= tol || error <= tol) {
+    if (converged) {
       return {
         ...createResultBase('bisection', tol, fx, a0, b0),
         root: c,
@@ -390,6 +399,7 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
         error: 0,
         width: 0,
         interval: 0,
+        status: true,
       }],
     };
   }
@@ -411,10 +421,11 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
         error: 0,
         width: 0,
         interval: 0,
+        status: true,
       }],
     };
   }
-  
+
   if (fa * fb > 0) {
     throw new Error('Regula falsi membutuhkan f(a) dan f(b) dengan tanda berbeda.');
   }
@@ -425,6 +436,7 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
 
   for (let i = 0; i <= maxIter; i += 1) {
     const denom = fb - fa;
+
     if (denom === 0) {
       throw new Error('Pembagi nol terjadi pada rumus regula falsi.');
     }
@@ -436,13 +448,25 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
       throw new Error(`Nilai fungsi tidak valid pada iterasi ${i}.`);
     }
 
-    let error;
+    /*
+      Lebar interval dibuat sama seperti Excel:
+      Jika selang baru [a, c], maka lebar = |c - a|
+      Jika selang baru [c, b], maka lebar = |b - c|
+    */
+    let intervalWidth;
 
     if (fa * fc < 0) {
-      error = Math.abs(c - a);
+      intervalWidth = Math.abs(c - a);
     } else {
-      error = Math.abs(b - c);
+      intervalWidth = Math.abs(b - c);
     }
+
+    /*
+      Status TRUE/FALSE mengikuti Excel:
+      TRUE jika |c sekarang - c sebelumnya| < toleransi
+    */
+    const convergenceError = prevC === null ? null : Math.abs(c - prevC);
+    const converged = prevC !== null && convergenceError < tol;
 
     iterations.push({
       iter: i,
@@ -452,12 +476,20 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
       fa,
       fb,
       fc,
-      error,
-      width: error,
-      interval: error,
+
+      // Kolom yang ditampilkan sebagai "Lebar Interval"
+      error: intervalWidth,
+      width: intervalWidth,
+      interval: intervalWidth,
+
+      // Status untuk TRUE/FALSE dan pewarnaan baris
+      status: converged,
+
+      // Disimpan kalau nanti ingin ditampilkan sebagai galat konvergensi
+      convergenceError,
     });
 
-    if (Math.abs(fc) <= tol || error <= tol) {
+    if (converged) {
       return {
         ...createResultBase('regula', tol, fx, a0, b0),
         root: c,

@@ -795,6 +795,10 @@ a {
     .identity-grid {
         grid-template-columns: 1fr;
     }
+
+    .sidebar .method-card {
+        display: none;
+    }
 }
 
 @media (max-width: 520px) {

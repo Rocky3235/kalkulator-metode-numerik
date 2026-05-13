@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Kalkulator Metode Numerik</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>Numerical Calc</h1>
+          <p>Kalkulator Metode Numerik</p>
+        </div>
+
+        <nav class="nav">
+          <a class="active" href="dashboard.html">Dashboard</a>
+          <a href="bisection.html">Metode Bagi Dua</a>
+          <a href="regula-falsi.html">Metode Regula Falsi</a>
+        </nav>
+
+        <div class="method-card">
+          <div class="method-content">
+            <h3>Tentang</h3>
+            <p>
+              Website ini membantu pencarian akar persamaan nonlinier menggunakan dua metode numerik:
+              metode bagi dua dan regula falsi.
+            </p>
+            <ul>
+              <li>Ringkasan metode</li>
+              <li>Perbandingan singkat</li>
+              <li>Petunjuk penggunaan</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-card">
+        <section class="hero">
+          <h2>Dashboard</h2>
+          <p>Pilih metode yang ingin dipelajari atau langsung dihitung.</p>
+        </section>
+
+        <section class="method-section">
+          <div class="section-title">
+            <div class="section-icon">1</div>
+            <div>
+              <h3>Metode Bagi Dua</h3>
+              <p>Pembagian interval secara berulang untuk mendekati akar.</p>
+            </div>
+          </div>
+          <div class="method-content-box">
+            <p>
+              Metode bagi dua membagi interval awal menjadi dua bagian dan mempertahankan bagian yang
+              masih memuat akar. Metode ini stabil, sederhana, dan cocok untuk pembelajaran dasar.
+            </p>
+            <div class="formula-box">c = (a + b) / 2</div>
+            <p class="small-note">Syarat awal: f(a) × f(b) &lt; 0.</p>
+          </div>
+        </section>
+
+        <section class="method-section">
+          <div class="section-title">
+            <div class="section-icon">2</div>
+            <div>
+              <h3>Metode Regula Falsi</h3>
+              <p>Interpolasi linear untuk memperkirakan akar lebih cepat.</p>
+            </div>
+          </div>
+          <div class="method-content-box">
+            <p>
+              Regula falsi membentuk garis lurus melalui dua titik pada fungsi lalu mengambil titik potong
+              terhadap sumbu-x sebagai pendekatan akar. Metode ini biasanya lebih cepat daripada bagi dua.
+            </p>
+            <div class="formula-box">c = (a·f(b) - b·f(a)) / (f(b) - f(a))</div>
+            <p class="small-note">Syarat awal: f(a) × f(b) &lt; 0.</p>
+          </div>
+        </section>
+
+        <section class="comparison-box">
+          <h3>Perbandingan Singkat</h3>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Aspek</th>
+                <th>Bagi Dua</th>
+                <th>Regula Falsi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ide dasar</td>
+                <td>Membagi interval</td>
+                <td>Interpolasi linear</td>
+              </tr>
+              <tr>
+                <td>Kecepatan</td>
+                <td>Lebih stabil, cenderung lebih lambat</td>
+                <td>Sering lebih cepat</td>
+              </tr>
+              <tr>
+                <td>Kompleksitas</td>
+                <td>Sangat sederhana</td>
+                <td>Sedikit lebih kompleks</td>
+              </tr>
+              <tr>
+                <td>Syarat awal</td>
+                <td>Perubahan tanda</td>
+                <td>Perubahan tanda</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="helper-box">
+          <h3>Cara Menggunakan Website</h3>
+          <ul>
+            <li>Pilih salah satu metode pada sidebar.</li>
+            <li>Masukkan fungsi f(x), interval a dan b, toleransi error, dan iterasi maksimum.</li>
+            <li>Tekan tombol hitung untuk melihat akar dan tabel iterasi.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

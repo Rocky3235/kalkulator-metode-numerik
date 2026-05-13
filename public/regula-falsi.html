@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode Regula Falsi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>Numerical Calc</h1>
+          <p>Metode Regula Falsi</p>
+        </div>
+
+        <nav class="nav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="bisection.html">Metode Bagi Dua</a>
+          <a class="active" href="regula-falsi.html">Metode Regula Falsi</a>
+        </nav>
+
+        <div class="method-card">
+          <div class="method-content">
+            <h3>Ringkasan</h3>
+            <p>
+              Regula falsi menggunakan interpolasi linear untuk membentuk perkiraan akar baru, tetapi
+              tetap menjaga interval yang memuat akar.
+            </p>
+            <ul>
+              <li>Sering lebih cepat</li>
+              <li>Berbasis garis lurus</li>
+              <li>Memerlukan tanda berbeda</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-card">
+        <section class="hero">
+          <h2>Metode Regula Falsi</h2>
+          <p>Pencarian akar persamaan nonlinier dengan pendekatan garis lurus.</p>
+        </section>
+
+        <section class="method-section compact-top">
+          <div class="method-content-box">
+            <h4>Rumus Inti</h4>
+            <div class="formula-box">c = (a·f(b) - b·f(a)) / (f(b) - f(a))</div>
+            <h4>Langkah Singkat</h4>
+            <ol>
+              <li>Tentukan interval awal [a, b].</li>
+              <li>Hitung titik pendekatan c.</li>
+              <li>Evaluasi f(c) dan pilih interval baru.</li>
+              <li>Ulangi sampai error memenuhi toleransi.</li>
+            </ol>
+          </div>
+        </section>
+
+        <form id="calculatorForm" class="form-grid">
+          <div class="field full">
+            <label for="fx">Fungsi f(x)</label>
+            <input type="text" id="fx" placeholder="Contoh: x^3 - x - 2" autocomplete="off">
+          </div>
+
+          <div class="field">
+            <label for="a">Nilai a</label>
+            <input type="number" id="a" step="any" placeholder="Batas bawah">
+          </div>
+
+          <div class="field">
+            <label for="b">Nilai b</label>
+            <input type="number" id="b" step="any" placeholder="Batas atas">
+          </div>
+
+          <div class="field">
+            <label for="tolerance">Toleransi Error</label>
+            <input type="number" id="tolerance" step="any" value="0.01">
+          </div>
+
+          <div class="field">
+            <label for="maxIterations">Maksimum Iterasi</label>
+            <input type="number" id="maxIterations" value="25" min="1">
+          </div>
+
+          <div class="field full button-group">
+            <button class="button" type="submit" data-action="calculate" data-method="regula">Hitung Metode Regula Falsi</button>
+            <button class="button secondary" type="button" onclick="fillExample()">Gunakan Contoh</button>
+            <button class="button secondary" type="reset">Reset</button>
+          </div>
+        </form>
+
+        <div class="helper-box">
+          <h3>Petunjuk Input</h3>
+          <ul>
+            <li>Gunakan variabel <strong>x</strong>.</li>
+            <li>Gunakan tanda <strong>^</strong> untuk perpangkatan, misalnya <strong>x^3</strong>.</li>
+            <li>Pastikan <strong>f(a) × f(b) &lt; 0</strong>.</li>
+            <li>Contoh fungsi: <strong>x^3 - x - 2</strong>.</li>
+            <li>Fungsi trigonometri seperti <strong>sin(x)</strong>, <strong>cos(x)</strong>, dan <strong>tan(x)</strong>
+              menggunakan satuan <strong>radian</strong>.</li>
+          </ul>
+        </div>
+
+        <div id="message"></div>
+        <div id="result"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

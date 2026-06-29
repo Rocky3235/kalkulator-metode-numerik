@@ -306,6 +306,7 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
 
   const iterations = [];
   let c = a;
+  let prevC = null; // Menambahkan variabel prevC sama seperti Regula Falsi
 
   for (let i = 0; i <= maxIter; i += 1) {
     c = (a + b) / 2;
@@ -315,23 +316,20 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       throw new Error(`Nilai fungsi tidak valid pada iterasi ${i}.`);
     }
 
-    /*
-      Lebar interval mengikuti cara lama:
-      jika akar ada di [a, c], lebar = |c - a|
-      jika akar ada di [c, b], lebar = |b - c|
-    */
-    let error;
+    let intervalWidth;
     let newInterval;
 
     if (fa * fc < 0) {
-      error = Math.abs(c - a);
+      intervalWidth = Math.abs(c - a);
       newInterval = "[a,c]";
     } else {
-      error = Math.abs(b - c);
+      intervalWidth = Math.abs(b - c);
       newInterval = "[c,b]";
     }
 
-    const converged = Math.abs(fc) <= tol || error <= tol;
+    // Mengubah penentuan status konvergen meniru Regula Falsi
+    const convergenceError = prevC === null ? null : Math.abs(c - prevC);
+    const converged = prevC !== null && convergenceError < tol;
 
     iterations.push({
       iter: i,
@@ -342,10 +340,11 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       fb,
       fc,
       newInterval,
-      error,
-      width: error,
-      interval: error,
+      error: intervalWidth, // Tetap menggunakan lebar interval untuk kolom tabel
+      width: intervalWidth,
+      interval: intervalWidth,
       status: converged,
+      convergenceError,
     });
 
     if (converged) {
@@ -365,6 +364,8 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       a = c;
       fa = fc;
     }
+
+    prevC = c; // Menyimpan nilai c saat ini untuk dievaluasi di iterasi berikutnya
   }
 
   return {

@@ -52,11 +52,13 @@
             <h4>Rumus Inti</h4>
             <div class="formula-box">c = (a + b) / 2</div>
             <h4>Langkah Singkat</h4>
-            <ol>
-              <li>Tentukan interval awal [a, b].</li>
-              <li>Hitung titik tengah c.</li>
-              <li>Evaluasi f(c) dan tentukan interval baru.</li>
-              <li>Ulangi sampai error memenuhi toleransi.</li>
+            <ol class="steps-list">
+              <li>Tentukan interval awal [a, b] dimana <code>f(a) &middot; f(b) &lt; 0</code>.</li>
+              <li>Hitung titik pendekatan.</li>
+              <li>Evaluasi <code>f(c)</code> dan tentukan interval baru.</li>
+              <li>Ulangi sampai error memenuhi toleransi
+                <code>|c<sub>baru</sub> - c<sub>lama</sub>| &lt; Toleransi</code>.
+              </li>
             </ol>
           </div>
         </section>

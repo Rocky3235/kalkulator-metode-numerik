@@ -751,3 +751,20 @@ a {
 .result-table tbody tr.row-ok:hover td {
     background: #e3fcec !important;
 }
+
+code {
+    font-family: inherit;
+    font-weight: 700;
+    color: #9c27b0;
+    padding: 0 2px;
+}
+
+.formula {
+    display: block;
+    margin: 12px 0;
+    text-align: center;
+    font-size: 1.1em;
+    color: #7b1fa2;
+    border-bottom: 2px solid #e1bee7;
+    padding-bottom: 8px;
+}

@@ -109,7 +109,7 @@ function renderResult(data) {
         <td>${formatNumber(row.fa)}</td>
         <td>${formatNumber(row.fb)}</td>
         <td>${formatNumber(row.fc)}</td>
-        <td>${formatNumber(row.newInterval)}</td>
+        <td>${row.newInterval}</td>
         <td>${formatNumber(row.error)}</td>
         <td>${isConverged ? 'TRUE' : 'FALSE'}</td>
       </tr>

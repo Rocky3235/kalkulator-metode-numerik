@@ -321,11 +321,14 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       jika akar ada di [c, b], lebar = |b - c|
     */
     let error;
+    let newInterval;
 
     if (fa * fc < 0) {
       error = Math.abs(c - a);
+      newInterval = "[a,c]";
     } else {
       error = Math.abs(b - c);
+      newInterval = "[c,b]";
     }
 
     const converged = Math.abs(fc) <= tol || error <= tol;
@@ -338,6 +341,7 @@ function computeBisection(f, a0, b0, tol, maxIter, fx) {
       fa,
       fb,
       fc,
+      newInterval,
       error,
       width: error,
       interval: error,
@@ -454,11 +458,14 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
       Jika selang baru [c, b], maka lebar = |b - c|
     */
     let intervalWidth;
+    let newInterval;
 
     if (fa * fc < 0) {
       intervalWidth = Math.abs(c - a);
+      newInterval = "[a,c]";
     } else {
       intervalWidth = Math.abs(b - c);
+      newInterval = "[c,b]";
     }
 
     /*
@@ -476,7 +483,7 @@ function computeRegulaFalsi(f, a0, b0, tol, maxIter, fx) {
       fa,
       fb,
       fc,
-
+      newInterval,
       // Kolom yang ditampilkan sebagai "Lebar Interval"
       error: intervalWidth,
       width: intervalWidth,

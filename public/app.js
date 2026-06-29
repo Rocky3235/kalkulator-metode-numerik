@@ -109,6 +109,7 @@ function renderResult(data) {
         <td>${formatNumber(row.fa)}</td>
         <td>${formatNumber(row.fb)}</td>
         <td>${formatNumber(row.fc)}</td>
+        <td>${formatNumber(row.newInterval)}</td>
         <td>${formatNumber(row.error)}</td>
         <td>${isConverged ? 'TRUE' : 'FALSE'}</td>
       </tr>
@@ -166,6 +167,7 @@ function renderResult(data) {
                 <th>f(a)</th>
                 <th>f(b)</th>
                 <th>f(c)</th>
+                <th>Selang Baru</th>
                 <th>Lebarnya/ɛ</th>
                 <th>Status</th>
               </tr>
